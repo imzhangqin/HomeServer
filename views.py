@@ -5,13 +5,18 @@ from flask_appbuilder import ModelView
 from models import UserSettings
 
 class UserSettingsView(ModelView):
-    route_base='/usersettings'
     datamodel = SQLAInterface(UserSettings)
-    label_columns = { 'photoPath':'Photo Path' }
-    edit_columns = { 'photoPath' }
-    list_columns = { 'photoPath' }
+    label_columns = {'photoPath':'Photo Path'}
+    # edit_columns = None
+    # list_columns = None
+    show_fieldsets = [
+                        (
+                            'User Settings',
+                            {'fields':['photoPath']}
+                        ),
+                     ]
 
 def register_views(appbuilder):
-    # appbuilder.add_view(UserSettingsView(), "User Settings", icon="fa-cog")
-    appbuilder.add_link("User Settings", "UserSettings", icon="fa-cog")
+    appbuilder.add_view(UserSettingsView(), "User Settings", icon="fa-cog")
+    # appbuilder.add_link("User Settings", "UserSettings", icon="fa-cog")
 
